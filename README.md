@@ -4,11 +4,11 @@ Este repositório contém a implementação de algoritmos desenvolvidos como par
 ## Estrutura do Projeto
 O projeto está organizado nos seguintes diretórios:
 
-brute_force/: Implementações de algoritmos utilizando a abordagem de força bruta.
+ - brute_force/: Implementações de algoritmos utilizando a abordagem de força bruta.
 
-suffix_tree/: Implementações relacionadas à árvore de sufixos.
+ - suffix_tree/: Implementações relacionadas à árvore de sufixos.
 
-Gráficos/: Scripts e arquivos utilizados para geração de gráficos e visualizações dos resultados.
+ - Gráficos/: Scripts e arquivos utilizados para geração de gráficos e visualizações dos resultados.
 
 ## Tecnologias Utilizadas
 O projeto utiliza as seguintes linguagens e ferramentas:
