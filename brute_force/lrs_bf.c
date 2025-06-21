@@ -2,59 +2,59 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <math.h> 
+#include <math.h>  // Necessário para sqrt()
 
+#define TAMANHO_STRING 3100
 #define NUM_EXECUCOES 5
 
-int main()
-{
-    // String predefinida - você pode alterar esta string conforme necessário
-    const char *S_original = "SFVJHNROXEVOPSEJZGEGRMEMPFUBHCKEVRQHXROOMZNJKOBMWXWOTEYDNHZMZXMUXNAYGPNEAKTEAWTXPMAHLJPSRVFLXMCBWVLIRCOLZTNBJQOSPRTBBQPVGWJSEKQFRUITTVVTHYRHYLKRBMZMCNQALDFUKQGGADHBYOYXTALTMOVCVIJRQGSKEYOYSUOZQJUSFKAPKVHRWITDMGTDGMWTCUSYVNJPQOIEUKVLWMTLHHYUQJTWDUYIGHMOYTVCVZSKUAMONONTTOPJSRDWQKPDJICRYXSEMIZHFABWEUUENAKAMQDOSRSGYWRHMWLBNXWSOPHQRKCIJTNFRJLQFWTWUTRENSUOXWBLYUUINOHXTKOZWHYYCHQPEKEDCUTVSKEEAWGAROFSCZHZOMOAIHJMCQWEIDQEJZPWRWXJUUYAZWYDCFSFSVMRVNLOTTSESHNCHASRFYGLSUNXELBROPISTQXFMSHVOLEJVMNCBWVDVVXSDNXOOQGGUSEFWUXMOCCJLLVLLCUNDZIITJMDKPQBPHXZCIVYQCLKQMVJHYRRHSQXYBSVUWTZFEGFRKLWUUJWQBPRCZWVPBHTDGDUZDFPTYVLWMRMNRZVQDHBEMEXAFDXJZYODFGZSBIEYRNGFDYVJPFDPUAIRNWEFZEUVTKFALJORSVKTAKELHDHBBBFZDGEUWTQZWGELPGPITOWATQEROAXIBQWNNZNMVYOLZMONEDGLOBAHFILLHLEHJBXVEJZBVPNDEPSJZIKVAKIPVSMSSCCLSGMLNTBVIGXPXJWAQYXMWUJHMCQQEERDIOSMCRLXAJWQHNOHJDLWJVKEYYIGXNTZIRRYKLBRUCXNDJNJOQCJQBHTDXUVQJVSROPQQNUVHEKVXHVWZQSKVSUOOZOUGUZLLATZYVLTBZAIUWKYKCLBEOOMMTLGDYPPZOPGXTUONETPXZDMJJFLGTPGAOMSGFELATOAAVDSWWJFCQDAGLZDOUTDUWSKHAHWYVHYFCBEVNRXXIGVHRSRJHVIAYZXZZCFOBDJTGMGQXTQNVSYXEZVNZFWRPLNZDPMNDOLCRKNTKNYDRNABAYUIPHAQAYSZLLCRYQNZRRKBCWEIYDOMGJDSJOIWECDCTOEAWVFFOKATQAQHSJSCUFWFHYLPHPJJJKFVATLMWQEAQHNGRWZBSDXVXUAWQPEEUKELTIDJFDJSJCFLNSHAEZLOLGCOPOEQLYYTJIPMLRYMTQHFOBRKNXEYKEWJUYSMGYGMVOQWSONKBFQTCKVGNPJRYXLPFSCEOXLWDRHUNLTPJNXSSVCIBBDKVLKHSTBVDJIRLZDPGUTUPZBQOSJSPMNEVAISXYUNRITEKIAXJLYBUPYXGYTYQTCGADGJOBSNELNUKNXMEBXFKXFNWLXHMYASAGOTPMCMYPRLBYTPBZNIUTUIYPTRRLQWXRHKLMFAHKKARHZBYDBZBENUVVYUKMUDXJIGEYCOBENCMBYVFROVTQJWYCXWKYROIXUMMBLQFJBDLEFZJQBMXZRXJTBAXJPWSBIBDFZLNUNEYIXYQUSRUMDYJTOMYJDLQPXVTAGWENLROYKTWJYRHWDRYBSQHJKBWCWDIEMBZWABBYVEFPSWFHGNSOBUOWSEYYZLCDMZIIPTGNJZVFFPWRQUFPFJVMYUOFZOATBVHNDNDFZHKAEHPPWYRRZAIXWLOBCPOICDEALWUAWFKYHWGHOTYATVJEDOXLGIIEMGTAOPOZDOVZPFNVWYMOQNMHZYYCQQZPXRXSTMJALCZFGODWRPUTFVPCDCBNBYDSQSGIVRUZARPDVEDCQMWAJVMDOUDNLDUOMAIHLUVHFDDSOYERDUVSLYKJDPUVQZAOEEBIPVZZIPPIKMDUUGADSGZXHXGWTKUYHMPDQECJ";
-    
+int main() {
+    const char *letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     double tempos[NUM_EXECUCOES];
-    int n = strlen(S_original);
+    int n = TAMANHO_STRING;
 
-    printf("String utilizada: %s\n", S_original);
-    printf("Tamanho da string: %d\n\n", n);
+    // Inicializa o gerador de números aleatórios
+    srand((unsigned int)time(NULL));
+
+    // Gera a string aleatória apenas uma vez
+    char S_original[TAMANHO_STRING + 1];
+    for (int i = 0; i < n; i++) {
+        S_original[i] = letras[rand() % 26];
+    }
+    S_original[n] = '\0';  // Finaliza com caractere nulo
+
+    printf("String utilizada: %s\n\n", S_original);
 
     // Executa o algoritmo NUM_EXECUCOES vezes com a mesma string
-    for (int execucao = 1; execucao <= NUM_EXECUCOES; execucao++)
-    {
-        char S[n + 1];
-        strcpy(S, S_original); // Copia a string original para uso nesta execução
+    for (int execucao = 1; execucao <= NUM_EXECUCOES; execucao++) {
+        char S[TAMANHO_STRING + 1];
+        strcpy(S, S_original);  // Copia a string original para uso nesta execução
 
-        char longest[n + 1];
-        longest[0] = '\0'; // Inicializa como string vazia
+        char longest[TAMANHO_STRING + 1] = "";
 
-        clock_t inicio = clock(); // Início da medição de tempo
+        clock_t inicio = clock();  // Início da medição de tempo
 
         // Algoritmo força bruta para encontrar o LRS
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = i + 1; j <= n; j++)
-            {
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
                 int len_sub = j - i;
-                char substring[len_sub + 1];
+                char substring[TAMANHO_STRING + 1];
                 strncpy(substring, S + i, len_sub);
                 substring[len_sub] = '\0';
 
                 int count = 0;
-                for (int k = 0; k <= n - len_sub; k++)
-                {
-                    if (strncmp(S + k, substring, len_sub) == 0)
-                    {
+                for (int k = 0; k <= n - len_sub; k++) {
+                    if (strncmp(S + k, substring, len_sub) == 0) {
                         count++;
                     }
                 }
 
-                if (count > 1 && len_sub > strlen(longest))
-                {
+                if (count > 1 && len_sub > strlen(longest)) {
                     strcpy(longest, substring);
                 }
             }
         }
 
-        clock_t fim = clock(); // Fim da medição de tempo
+        clock_t fim = clock();  // Fim da medição de tempo
         double tempo_execucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
         tempos[execucao - 1] = tempo_execucao;
 
@@ -64,16 +64,14 @@ int main()
 
     // Cálculo da média
     double soma = 0.0;
-    for (int i = 0; i < NUM_EXECUCOES; i++)
-    {
+    for (int i = 0; i < NUM_EXECUCOES; i++) {
         soma += tempos[i];
     }
     double media = soma / NUM_EXECUCOES;
 
     // Cálculo do desvio padrão
     double soma_quadrados = 0.0;
-    for (int i = 0; i < NUM_EXECUCOES; i++)
-    {
+    for (int i = 0; i < NUM_EXECUCOES; i++) {
         soma_quadrados += (tempos[i] - media) * (tempos[i] - media);
     }
     double desvio_padrao = sqrt(soma_quadrados / (NUM_EXECUCOES - 1));
