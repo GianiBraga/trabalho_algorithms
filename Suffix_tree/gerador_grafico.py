@@ -1,29 +1,62 @@
 import matplotlib.pyplot as plt
 
+# Defina use_log_x = True para escala logarítmica no eixo X, False para escala normal
+use_log_x = False
+
 # Tamanhos das entradas
-tamanhos = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] 
+tamanhos = [
+    100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
+    1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
+    2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000
+]
 
 # Tempos de execução
-tempos = [0.000322, 0.000491, 0.000812, 0.000924, 0.001251, 0.001386, 0.001523, 0.001624, 0.001843, 0.001960, 0.002078, 0.002110, 0.002191, 0.002224, 0.002352, 0.002373, 0.002501, 0.002642, 0.002783 , 0.002853 , 0.002910, 0.003160, 0.003235, 0.003443, 0.003513 , 0.003679, 0.003766, 0.003967, 0.004000, 0.004160]
+tempos = [
+    0.000074, 0.000137, 0.000174, 0.000248, 0.000301,
+    0.000386, 0.000473, 0.000550, 0.000696, 0.000789,
+    0.000789, 0.000881, 0.000907, 0.000951, 0.001018,
+    0.001084, 0.001157, 0.001225, 0.001298, 0.001334,
+    0.001407, 0.001466, 0.001498, 0.001585, 0.001647,
+    0.001694, 0.001751, 0.001822, 0.001925, 0.001987
+]
 
-# Desvios padrão correspondentes
-desvios = [0.000097, 0.000212, 0.000328, 0.000560, 0.000655, 0.000759, 0.000859, 0.000949, 0.001031, 0.001130, 0.001289, 0.001378, 0.001440, 0.001549, 0.001603, 0.001756, 0.001801, 0.001943, 0.002032, 0.002197, 00.002243, 0.002321, 0.002468, 0.002543, 0.002625, 0.002719, 0.002807, 0.002984, 0.003021, 0.003136]
+# Desvios padrão
+desvios = [
+    0.000023, 0.000030, 0.000040, 0.000058, 0.000058,
+    0.000102, 0.000096, 0.000121, 0.000122, 0.000156,
+    0.000128, 0.000161, 0.000177, 0.000188, 0.000165,
+    0.000178, 0.000163, 0.000202, 0.000230, 0.000114,
+    0.000166, 0.000173, 0.000219, 0.000230, 0.000174,
+    0.000189, 0.000236, 0.000266, 0.000212, 0.000264
+]
 
-# Criando o gráfico
-plt.figure(figsize=(30, 6))
+# Cria o gráfico com linha azul e barras de erro vermelhas
+plt.figure(figsize=(10, 6))
+plt.errorbar(
+    x=tamanhos,
+    y=tempos,
+    yerr=desvios,
+    fmt='o-',
+    color='blue',     # linha e marcadores em azul
+    ecolor='red',     # barras de erro em vermelho
+    elinewidth=1.5,
+    capsize=3,
+    label='Tempo de Execução'
+)
 
-# Linha do tempo
-plt.plot(tamanhos, tempos, marker='o', linestyle='-', color='blue', linewidth=2, label='Tempo de Execução')
-
-# Linha do desvio padrão
-plt.plot(tamanhos, desvios, marker='x', linestyle='--', color='red', linewidth=2, label='Desvio Padrão')
+# Escolha entre escala normal ou logarítmica no eixo X
+if use_log_x:
+    plt.xscale('log')
+    escala = 'Logarítmica'
+else:
+    plt.xscale('linear')
+    escala = 'Linear'
 
 # Títulos e rótulos
-plt.title('Tempo de Execução vs Tamanho da Entrada (com Desvio Padrão)', fontsize=14)
+plt.title(f'Tempo de Execução vs Tamanho da Entrada (Escala X: {escala})', fontsize=14)
 plt.xlabel('Tamanho da String (n)', fontsize=12)
 plt.ylabel('Tempo (segundos)', fontsize=12)
-plt.grid(True)
-plt.xticks(tamanhos)
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.legend()
 plt.tight_layout()
 
