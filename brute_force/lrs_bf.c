@@ -4,8 +4,8 @@
 #include <time.h>
 #include <math.h>  // Necessário para sqrt()
 
-#define TAMANHO_STRING 3100
-#define NUM_EXECUCOES 5
+#define TAMANHO_STRING 3000
+#define NUM_EXECUCOES 100
 
 int main() {
     const char *letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
